@@ -8,9 +8,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="598*"/>
+            <ColumnDefinition Width="197*"/>
+        </Grid.ColumnDefinitions>
         <sharpGL:OpenGLControl
             OpenGLDraw="OpenGLControl_OpenGLDraw"
             OpenGLInitialized="OpenGLControl_OpenGLInitialized"
-            RenderContextType="FBO" />
+            RenderContextType="FBO" Grid.ColumnSpan="2" Margin="0,0,0,0.5" />
     </Grid>
 </Window>
