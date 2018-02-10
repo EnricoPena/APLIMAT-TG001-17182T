@@ -58,7 +58,10 @@ namespace aplimat_labs
         //private CubeMesh myCube = new CubeMesh();
         //private Randomizer rng = new Randomizer(-1, -1);
 
-        private List<CubeMesh> myCubes = new List<CubeMesh>();
+        private CubeMesh myCube = new CubeMesh();
+        private Vector3 velocity = new Vector3(1, 0, 0);
+
+        //private List<CubeMesh> myCubes = new List<CubeMesh>();
 
         private void OpenGLControl_OpenGLDraw(object sender, SharpGL.SceneGraph.OpenGLEventArgs args)
         {
@@ -68,57 +71,80 @@ namespace aplimat_labs
 
             gl.Translate(0.0f, 0.0f, -100.0f);
 
-            CubeMesh myCube = new CubeMesh();
-            myCube.Position = new Vector3(Gaussian.Generate(0,15), Vertical.GenerateDouble(), 0);
+            //CubeMesh myCube = new CubeMesh();
+            //myCube.Position = new Vector3(Gaussian.Generate(0,15), Vertical.GenerateDouble(), 0);
             
-            myCubes.Add(myCube);
+            //myCubes.Add(myCube);
 
-            foreach (var cube in myCubes)
+            myCube.Draw(gl);
+            myCube.Position += velocity;
+
+            if (myCube.Position.x >= 30.0f)
             {
-               //gl.Color(randColor.GenerateDouble(), randColor.GenerateDouble(), randColor.GenerateDouble()); 
-                cube.Draw(gl);
+                velocity.x = -1;
             }
 
-            switch(rng.Generate())
+            if (myCube.Position.x >= 30.0f)
             {
-                
-
-                case UP:
-                    myCube.Position += new Vector3(0, 0.1f, 0);
-                    break;
-
-                case DOWN:
-                    myCube.Position += new Vector3(0, -0.1f, 0);
-                    break;
-
-                case TAILS:
-                    myCube.Position += new Vector3(0.1f, 0, 0);
-                    break;
-
-                case TAILST:
-                    myCube.Position += new Vector3(-0.1f, 0, 0);
-                    break;
-
-                case DIAG1:
-                    myCube.Position += new Vector3(0.1f, 0.1f, 0);
-                    break;
-
-                case DIAG2:
-                    myCube.Position += new Vector3(-0.1f, -0.1f, 0);
-                    break;
-
-                case DIAG3:
-                    myCube.Position += new Vector3(-0.1f, -0.1f, 0);
-                    break;
-
-                case DIAG4:
-                    myCube.Position += new Vector3(0.1f, 0.1f, 0);
-                    break;
-
-
+                velocity.y = 1;
             }
 
-            
+
+            if (myCube.Position.y >= 30.0f)
+            {
+                velocity.y = -1;
+            }
+
+            if (myCube.Position.x >= 30.0f)
+            {
+                velocity.y = 1;
+            }
+            //foreach (var cube in myCubes)
+            //{
+            //   //gl.Color(randColor.GenerateDouble(), randColor.GenerateDouble(), randColor.GenerateDouble()); 
+            //    cube.Draw(gl);
+            //}
+
+            //switch(rng.Generate())
+            //{
+
+
+            //    case UP:
+            //        myCube.Position += new Vector3(0, 0.1f, 0);
+            //        break;
+
+            //    case DOWN:
+            //        myCube.Position += new Vector3(0, -0.1f, 0);
+            //        break;
+
+            //    case TAILS:
+            //        myCube.Position += new Vector3(0.1f, 0, 0);
+            //        break;
+
+            //    case TAILST:
+            //        myCube.Position += new Vector3(-0.1f, 0, 0);
+            //        break;
+
+            //    case DIAG1:
+            //        myCube.Position += new Vector3(0.1f, 0.1f, 0);
+            //        break;
+
+            //    case DIAG2:
+            //        myCube.Position += new Vector3(-0.1f, -0.1f, 0);
+            //        break;
+
+            //    case DIAG3:
+            //        myCube.Position += new Vector3(-0.1f, -0.1f, 0);
+            //        break;
+
+            //    case DIAG4:
+            //        myCube.Position += new Vector3(0.1f, 0.1f, 0);
+            //        break;
+
+
+            //}
+
+
             //myCube.Draw(gl);
 
             //myCube.Position += new Vector3(0, 1, 0);
