@@ -22,13 +22,14 @@ namespace aplimat_labs
 {
     public partial class MainWindow : Window
     {
+       
 
         private const float LINE_SMOOTHNESS = 0.02f;
         private const float GRAPH_LIMIT = 15;
         private const int TOTAL_CIRCLE_ANGLE = 360;
 
-        private Vector3 a = new Vector3(15, 15, 0);
-        private Vector3 b = new Vector3(-2, 10, 0);
+        //private Vector3 a = new Vector3(15, 15, 0);
+        //private Vector3 b = new Vector3(-2, 10, 0);
 
         private const int UP = 0;
         private const int TAILS = 1;
@@ -42,14 +43,25 @@ namespace aplimat_labs
         private Randomizer rng = new Randomizer(0, 15);
         private Randomizer Color = new Randomizer(0, 1);
         private Randomizer Vertical = new Randomizer(-20, 20);
+        private float speed = 2.0f;
+
+        private Vector3 myVector = new Vector3();
+
+        private Vector3 a = new Vector3(5, 7, 0);
         
+        //private Vector3 b = new Vector3(7, -6, 0);
 
         public MainWindow()
         {
             InitializeComponent();
             this.KeyDown += new KeyEventHandler(MainWindow_KeyDown);
 
-           // Vector3 c = a + b;
+
+
+            myVector = a;
+            Console.WriteLine(myVector.GetMagnitude());
+
+            // Vector3 c = a + b;
             //Console.WriteLine("vector c values: x:" + c.x + "y:" + c.y + "z:" + c.z);
 
             //Vector3 d = a - b;
@@ -66,39 +78,70 @@ namespace aplimat_labs
         private void OpenGLControl_OpenGLDraw(object sender, SharpGL.SceneGraph.OpenGLEventArgs args)
         {
             OpenGL gl = args.OpenGL;
+
+            myVector = a;
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.LoadIdentity();
 
             gl.Translate(0.0f, 0.0f, -100.0f);
 
+
+            gl.Color(1.0f, 0.0f, 0.0f);
+            gl.Begin(OpenGL.GL_LINE_WIDTH);
+            gl.Vertex(0, 0);
+            gl.Vertex(a.x, a.y);
+            gl.End();
+
+            gl.Color(1.0f, 0.0f, 0.0f);
+            gl.Begin(OpenGL.GL_LINE_WIDTH);
+            gl.Begin(OpenGL.GL_LINE_STRIP); 
+            gl.Vertex(0, 0);
+            gl.Vertex(a.x, a.y);
+            gl.End();
+
+
+            //gl.Color(0.0f, 1.0f, 0.0f);
+            //gl.Begin(OpenGL.GL_LINE_STRIP);
+            //gl.Vertex(0, 0);
+            //gl.Vertex(a.x, a.y);
+            //gl.Vertex(b.x, b.y);
+            //gl.End();
+
+            //gl.Color(0.0f, 1.0f, 0.0f);
+            //gl.Begin(OpenGL.GL_LINE_STRIP);
+            //gl.Vertex(b.x, b.y);
+            //gl.Vertex(0,0);
+            //gl.End();
+
             //CubeMesh myCube = new CubeMesh();
             //myCube.Position = new Vector3(Gaussian.Generate(0,15), Vertical.GenerateDouble(), 0);
-            
+
             //myCubes.Add(myCube);
 
-            myCube.Draw(gl);
-            myCube.Position += velocity;
+            //myCube.Draw(gl);
+            //myCube.Position += velocity * speed;
+            //myCube.Position += velocity;
 
-            if (myCube.Position.x >= 30.0f)
-            {
-                velocity.x = -1;
-            }
+            //if (myCube.Position.x >= 30.0f)
+            //{
+            //    velocity.x = -1;
+            //}
 
-            if (myCube.Position.x >= 30.0f)
-            {
-                velocity.y = 1;
-            }
+            //if (myCube.Position.x >= 30.0f)
+            //{
+            //    velocity.y = 1;
+            //}
 
 
-            if (myCube.Position.y >= 30.0f)
-            {
-                velocity.y = -1;
-            }
+            //if (myCube.Position.y >= 30.0f)
+            //{
+            //    velocity.y = -1;
+            //}
 
-            if (myCube.Position.x >= 30.0f)
-            {
-                velocity.y = 1;
-            }
+            //if (myCube.Position.x >= 30.0f)
+            //{
+            //    velocity.y = 1;
+            //}
             //foreach (var cube in myCubes)
             //{
             //   //gl.Color(randColor.GenerateDouble(), randColor.GenerateDouble(), randColor.GenerateDouble()); 
@@ -277,6 +320,8 @@ namespace aplimat_labs
         private void OpenGLControl_OpenGLInitialized(object sender, SharpGL.SceneGraph.OpenGLEventArgs args)
         {
             OpenGL gl = args.OpenGL;
+        
+
 
             gl.Enable(OpenGL.GL_DEPTH_TEST);
 
@@ -302,13 +347,19 @@ namespace aplimat_labs
 
             gl.ShadeModel(OpenGL.GL_SMOOTH);
 
+            
+
+
+
+
+
         }
         #endregion
 
         #region draw text
         private void DrawText(OpenGL gl, string text, int x, int y)
         {
-            gl.DrawText(x, y, 1, 1, 1, "Arial", 12, text);
+            gl.DrawText(x, y, 1, 1, 1, "Arial", 12, "myVectorMagnitude");
         }
         #endregion
     }
