@@ -56,10 +56,18 @@ namespace aplimat_labs.Models
         {
             return new Vector3(left.x * scalar, left.y * scalar, left.z * scalar);
         }
-        public static Vector3 operator /(Vector3 rhs, Vector3 lhs)
+  
+        public static Vector3 operator /(Vector3 left, float scalar)
         {
-            return new Vector3(rhs.x / lhs.x, rhs.y / lhs.y, rhs.z / lhs.z);
+            return new Vector3(left.x / scalar,
+            left.y / scalar,
+            left.z / scalar);
+
         }
+
+
+
+
 
         public float GetMagnitude()
         {

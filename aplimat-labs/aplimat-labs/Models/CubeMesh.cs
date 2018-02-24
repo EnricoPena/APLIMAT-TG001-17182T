@@ -66,15 +66,17 @@ namespace aplimat_labs.Models
             gl.Vertex(this.Position.x + 0.5f, this.Position.y - 0.5f, this.Position.z + 0.5f);
             gl.Vertex(this.Position.x - 0.5f, this.Position.y - 0.5f, this.Position.z - 0.5f);
             gl.Vertex(this.Position.x + 0.5f, this.Position.y - 0.5f, this.Position.z - 0.5f);
-            gl.Color(0, 0, 0);
+            //gl.Color(0, 1, 0);
             gl.End();
 
-            ApplyVelocity();
+            UpdateMotion();
         }
 
-        private void ApplyVelocity()
+        private void UpdateMotion()
         {
-            this.Position += Velocity;
+            this.Velocity += this.Acceleration;
+            this.Position += this.Velocity;
+            this.Acceleration *= 0;
             //this.Position -= Velocity;
         }
     }

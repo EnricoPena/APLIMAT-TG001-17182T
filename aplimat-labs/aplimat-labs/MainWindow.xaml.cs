@@ -59,8 +59,34 @@ namespace aplimat_labs
             //Console.WriteLine("vector d values: x:" + d.x + "y:" + d.y + " z:" + d.z);
 
         }
+        private CubeMesh lightCube = new CubeMesh()
+        {
+            //Acceleration = new Vector3(0.1f, 0, 0),
+            Position = new Vector3(-25, 0, 0)
+        };
+
+        private CubeMesh middleWeightCube = new CubeMesh()
+        {
+            Position = new Vector3(-25, 10, 0),
+            Mass = 5
+        };
+
+        private CubeMesh heavyCube = new CubeMesh()
+        {
+            Position = new Vector3(-25, -10, 0),
+            Mass = 10
+        };
+
+
+
+        private Vector3 gravity = new Vector3(0, 0.01f, 0);
+        private Vector3 wind = new Vector3(0.01f, 0, 0);
+        //private Vector3 acceleration = Vector3.down * 9.81f;
+
         private CubeMesh mover = new CubeMesh(-25, 0, 0);
         private Vector3 acceleration = new Vector3(0.01f, 0, 0);
+
+
         //private Vector3 deceleration = new Vector3(-0.01f, 0, 0);
 
         //private CubeMesh myCube = new CubeMesh();
@@ -89,21 +115,39 @@ namespace aplimat_labs
 
             gl.Translate(0.0f, 0.0f, -40.0f);
 
-            mover.Draw(gl);
-            mover.Velocity += acceleration;
-            //mover.Velocity -= deceleration;
-            mover.Velocity.Clamp(2.0f);
+            lightCube.Draw(gl);
+            lightCube.ApplyForce(wind);
+            lightCube.ApplyForce(gravity);
+            gl.Color(1.0f, 0.0f, 0.0f);
 
-            if (mover.Position.x >= 25.0f)
+
+            middleWeightCube.Draw(gl);
+            middleWeightCube.ApplyForce(wind);
+            middleWeightCube.ApplyForce(gravity);
+            gl.Color(0.0f, 0.0f, 1.0f);
+
+            heavyCube.Draw(gl);
+            heavyCube.ApplyForce(wind);
+            heavyCube.ApplyForce(gravity);
+            gl.Color(0.0f, 1.0f, 0.0f);
+
+
+
+            //mover.Draw(gl);
+            //mover.Velocity += acceleration;
+            ////mover.Velocity -= deceleration;
+            //mover.Velocity.Clamp(2.0f);
+
+            if (lightCube.Position.x >= 25.0f)
             {
-                mover.Position.x = 25;
+                lightCube.Position.y = -25;
             }
             else if (mover.Position.x >= 25.0f)
             {
-                mover.Position.x = 0;
+                lightCube.Position.y = 0;
             }
 
-            gl.DrawText(20, 20, 1, 0, 0, "Arial", 25, mover.Velocity.x + " ");
+            //gl.DrawText(20, 20, 1, 0, 0, "Arial", 25, mover.Velocity.x + " ");
 
 
             //OpenGL.GL_LINE_WIDTH(1.0f, 1.0f, 0);
@@ -117,7 +161,8 @@ namespace aplimat_labs
 
             //gl.LineWidth(30.0f);
             //gl.Begin(OpenGL.GL_LINE_STRIP);
-            gl.Color(1.0f, 0.0f, 0.0f);
+            //gl.Color(1.0f, 0.0f, 0.0f);
+            //gl.Color(0.0f, 1.0f, 0.0f);
             //gl.Vertex(0, 0, 0);
             //gl.Vertex(mousePos.x, mousePos.y, 0);
             //gl.End();
